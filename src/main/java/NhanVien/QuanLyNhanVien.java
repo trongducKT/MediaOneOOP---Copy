@@ -70,14 +70,13 @@ public class QuanLyNhanVien {
     }
         public boolean traLuong(){
         for(NhanVien obj : danhsachNhanViens){
-                if(obj instanceof NVPartTime){
+               if(obj instanceof NVPartTime){
                NVPartTime nvpt = (NVPartTime) obj;
-               nvpt.setThoiGianLamViec(0);
+               nvpt.setThoiGianLamViec(0.0);
+               }
+        }
                IO.ghiNV(danhsachNhanViens);
                return true;
-               }
-            }
-        return false;
     }
     public boolean xoaNhanVien(String name){
        for(NhanVien obj : danhsachNhanViens){

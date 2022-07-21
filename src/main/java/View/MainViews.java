@@ -68,7 +68,7 @@ public class MainViews extends javax.swing.JFrame {
 
         BtnNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnNhanVien.setForeground(new java.awt.Color(153, 153, 0));
-        BtnNhanVien.setText("QUAN LY NHAN VIEN");
+        BtnNhanVien.setText("QUẢN LÝ NHÂN VIÊN");
         BtnNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnNhanVienActionPerformed(evt);
@@ -77,13 +77,14 @@ public class MainViews extends javax.swing.JFrame {
 
         BtnChiPhi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BtnChiPhi.setForeground(new java.awt.Color(153, 153, 0));
-        BtnChiPhi.setText("QUAN LY CHI PHI");
+        BtnChiPhi.setText("QUẢN LÝ CHI PHÍ");
         BtnChiPhi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnChiPhiActionPerformed(evt);
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Notification50.png"))); // NOI18N
         jButton1.setToolTipText("");
         jButton1.setMaximumSize(new java.awt.Dimension(70, 70));
         jButton1.setMinimumSize(new java.awt.Dimension(70, 70));
