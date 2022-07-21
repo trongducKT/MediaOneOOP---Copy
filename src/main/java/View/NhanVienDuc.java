@@ -90,7 +90,7 @@ public class NhanVienDuc extends javax.swing.JFrame {
 
         LbtenNhanVien1.setText("Tên nhân viên");
 
-        BtnTimKiem.setText("Tìm Kiếm");
+        BtnTimKiem.setText("Search");
         BtnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnTimKiemActionPerformed(evt);
@@ -257,8 +257,10 @@ public class NhanVienDuc extends javax.swing.JFrame {
            JOptionPane.ERROR_MESSAGE); 
       }else{
           if(qlnv.xoaNhanVien(TFtenNhanVien.getText())){
-          JOptionPane.showMessageDialog(null, "Xóa thành công", "", 
+          JOptionPane.showMessageDialog(null, "Xác nhận xóa nhân viên.", "", 
            JOptionPane.WARNING_MESSAGE); 
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();
                   this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
 //        list = new ArrayList<> (); // list = io.docSP();
