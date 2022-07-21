@@ -29,9 +29,10 @@ public class NhanVienDuc extends javax.swing.JFrame {
     int key = 0;
     IO io = new IO();
     QuanLyNhanVien qlnv;
+
     public NhanVienDuc() {
         initComponents();
-        qlnv=new QuanLyNhanVien();
+        qlnv = new QuanLyNhanVien();
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
 //        list = new ArrayList<> (); // list = io.docSP();
@@ -42,12 +43,12 @@ public class NhanVienDuc extends javax.swing.JFrame {
         showResultCPNV();
     }
 
-        private void showResultCPNV() {
+    private void showResultCPNV() {
 
         for (int i = 0; i < list_NhanVien.size(); i++) {
             NhanVien nv = list_NhanVien.get(i);
             model.addRow(new Object[]{
-                nv.getTenNhanVien(), nv.getLoaiNhanVien(), (int)nv.tinhLuong()
+                nv.getTenNhanVien(), nv.getLoaiNhanVien(), (int) nv.tinhLuong()
             });
         }
 
@@ -218,24 +219,43 @@ public class NhanVienDuc extends javax.swing.JFrame {
 
     private void BtnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTimKiemActionPerformed
         // TODO add your handling code here:
-        if(TFtenNhanVien.getText().equals("")){
-           JOptionPane.showMessageDialog(null, "Nhập thông tin tên nhân viên", "Thông báo lỗi", 
-           JOptionPane.ERROR_MESSAGE);
-        }else{
-        NhanVien nv = null;
-        int cout = 0;
-        for (int i = 0; i < list_NhanVien.size(); i++) {
-            if (list_NhanVien.get(i).getTenNhanVien().equals(TFtenNhanVien.getText())) {
-                nv = list_NhanVien.get(i);
-                cout++;
+        if (TFtenNhanVien.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Nhập thông tin tên nhân viên", "Thông báo lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            NhanVien nv = null;
+            int cout = 0;
+            for (int i = 0; i < list_NhanVien.size(); i++) {
+                if (list_NhanVien.get(i).getTenNhanVien().equals(TFtenNhanVien.getText())) {
+                    nv = list_NhanVien.get(i);
+                    cout++;
 //              list.add(sp);
-                showResultTKNV(nv);
+                    showResultTKNV(nv);
+                }
             }
-        }
-        if(cout==0){
-           JOptionPane.showMessageDialog(null, "Không có nhân viên cần tìm!", "Thông báo lỗi", 
-           JOptionPane.ERROR_MESSAGE); 
-        }
+            if (TFtenNhanVien.getText().equals("Full-time")) {
+
+                for (NhanVien obj : list_NhanVien) {
+                    if (obj instanceof NhanVienCoDinh) {
+                        cout++;
+                        showResultTKNV(obj);
+  
+                    }
+                }
+            }
+            if (TFtenNhanVien.getText().equals("Part-time")) {
+
+                for (NhanVien obj : list_NhanVien) {
+                    if (obj instanceof NVPartTime) {
+                        cout++;
+                        showResultTKNV(obj);
+                    }
+                }
+            }
+            if (cout == 0) {
+                JOptionPane.showMessageDialog(null, "Không có nhân viên cần tìm!", "Thông báo lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_BtnTimKiemActionPerformed
 
@@ -247,10 +267,10 @@ public class NhanVienDuc extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnClearActionPerformed
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
-       JFrame Mainviews = new MainViews();
+        JFrame Mainviews = new MainViews();
         Mainviews.setVisible(true);
         this.setVisible(false);
-       // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_BackActionPerformed
 
     private void changeBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBTNActionPerformed
@@ -268,42 +288,42 @@ public class NhanVienDuc extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      if(TFtenNhanVien.getText().equals("")){
-          JOptionPane.showMessageDialog(null, "Nhập thông tin tên nhân viên", "Thông báo lỗi", 
-           JOptionPane.ERROR_MESSAGE); 
-      }else{
-          if(qlnv.xoaNhanVien(TFtenNhanVien.getText())){
-          JOptionPane.showMessageDialog(null, "Xác nhận xóa nhân viên.", "", 
-           JOptionPane.WARNING_MESSAGE); 
-        model.getDataVector().removeAllElements();
-        model.fireTableDataChanged();
-                  this.setLocationRelativeTo(null);
-        this.setLayout(new BorderLayout());
+        if (TFtenNhanVien.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Nhập thông tin tên nhân viên", "Thông báo lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (qlnv.xoaNhanVien(TFtenNhanVien.getText())) {
+                JOptionPane.showMessageDialog(null, "Xác nhận xóa nhân viên.", "",
+                        JOptionPane.WARNING_MESSAGE);
+                model.getDataVector().removeAllElements();
+                model.fireTableDataChanged();
+                this.setLocationRelativeTo(null);
+                this.setLayout(new BorderLayout());
 //        list = new ArrayList<> (); // list = io.docSP();
 //        list_NhanVien = new ArrayList<>();
-        model = (DefaultTableModel) jTable1.getModel();
-        list_NhanVien = io.docNV();
+                model = (DefaultTableModel) jTable1.getModel();
+                list_NhanVien = io.docNV();
 //        System.out.println(list_NhanVien.size());
-        showResultCPNV();
-          }else{
-           JOptionPane.showMessageDialog(null, "Không tồn tại nhân viên!", "Thông báo lỗi", 
-           JOptionPane.ERROR_MESSAGE);          
-          }
-      }      
+                showResultCPNV();
+            } else {
+                JOptionPane.showMessageDialog(null, "Không tồn tại nhân viên!", "Thông báo lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       
-           JOptionPane.showMessageDialog(null, "Trả lương nhân viên.", "", 
-           JOptionPane.WARNING_MESSAGE);
-            ArrayList<SuKienMotLan> dsSk = io.docSKMotLan();
-            dsSk.add(new SuKienMotLan(LocalDateTime.now(), "Trả lương cho nhân viên", "Trả lương", (int)qlnv.tongLuong()));
-            io.ghiSKMotLan(dsSk);
+
+        JOptionPane.showMessageDialog(null, "Trả lương nhân viên.", "",
+                JOptionPane.WARNING_MESSAGE);
+        ArrayList<SuKienMotLan> dsSk = io.docSKMotLan();
+        dsSk.add(new SuKienMotLan(LocalDateTime.now(), "Trả lương cho nhân viên", "Trả lương", (int) qlnv.tongLuong()));
+        io.ghiSKMotLan(dsSk);
         qlnv.traLuong();
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
-                  this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
 //        list = new ArrayList<> (); // list = io.docSP();
 //        list_NhanVien = new ArrayList<>();
@@ -321,13 +341,15 @@ public class NhanVienDuc extends javax.swing.JFrame {
             text += "Nhân viên cố định:\n";
             text += "Họ và tên: " + ((NhanVienCoDinh) nv).getTenNhanVien() + "\n";
             text += "Vị trí: " + ((NhanVienCoDinh) nv).getViTri() + "\n";
-            text += "Lương: " + (int)((NhanVienCoDinh) nv).tinhLuong() + "VND\n";
+            text += "Lương: " + (int) ((NhanVienCoDinh) nv).tinhLuong() + "VND\n \n";
+            
         } else if (nv instanceof NVPartTime) {
             text += "Nhân viên Part-Time:\n";
             text += "Họ và tên: " + ((NVPartTime) nv).getTenNhanVien() + "\n";
-            text += "Thời gian làm việc: " + ((NVPartTime) nv).getThoiGianLamViec()+"h" + "\n";
-            text += "Lương theo giờ: "+((NVPartTime)nv).getLuongTheoGio()+"\n";
-            text += "Lương: " + (int)((NVPartTime) nv).tinhLuong() + "VND\n";
+            text += "Thời gian làm việc: " + ((NVPartTime) nv).getThoiGianLamViec() + "h" + "\n";
+            text += "Lương theo giờ: " + ((NVPartTime) nv).getLuongTheoGio() + "\n";
+            text += "Lương: " + (int) ((NVPartTime) nv).tinhLuong() + "VND\n \n";
+            
         }
 
         jTextArea1.append(text);
